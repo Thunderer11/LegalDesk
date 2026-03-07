@@ -88,6 +88,17 @@
             </ul>
         </section>
 
+        <section id="publications" class="publications-research">
+            <h2>Publications and Research</h2>
+            <p class="intro-text">Adv. Samridhi Sharma actively contributes to legal scholarship through research and writing.</p>
+            <ul class="publications-list">
+                <li class="publication-item">✔ Author of the book <em>Family Law: An Overview to Hindu Law</em></li>
+                <li class="publication-item">✔ Research papers published in reputed legal journals</li>
+                <li class="publication-item">✔ Author of multiple book chapters on diverse legal subjects</li>
+                <li class="publication-item">✔ Presenter at national legal conferences</li>
+            </ul>
+        </section>
+
         <section id="services">
             <h2>Our Services</h2>
             <ul>
@@ -148,11 +159,11 @@
             }
         }
 
-        // Scroll animation for practice areas
+        // Scroll animation for practice areas and publications
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const items = entry.target.querySelectorAll('.practice-item');
+                    const items = entry.target.querySelectorAll('.practice-item, .publication-item');
                     items.forEach((item, index) => {
                         setTimeout(() => {
                             item.classList.add('visible');
@@ -167,6 +178,12 @@
         const practiceSection = document.getElementById('practice');
         if (practiceSection) {
             observer.observe(practiceSection);
+        }
+
+        // Scroll animation for publications and research
+        const publicationsSection = document.getElementById('publications');
+        if (publicationsSection) {
+            observer.observe(publicationsSection);
         }
     </script>
 </body>
