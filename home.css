@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
     color: #333;
+    overflow-x: hidden; /* prevent horizontal scroll */
 }
 header {
     background-color: #2c3e50;
@@ -12,8 +15,70 @@ header {
     text-align: center;
 }
 nav {
-    background-color: #34495e;
-    padding: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent; /* fully transparent */
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+.logo-space {
+    color: white;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+.logo-space img {
+    height: 75px; /* larger logo */
+    width: auto;
+    display: block;
+}
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.site-title h1 {
+    font-size: 1.75rem;
+    margin: 0;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    white-space: nowrap; /* single line */
+}
+
+.site-title p {
+    display: none; /* remove subtitle text */
+}nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: auto; /* push menu to the right */
+    padding-left: 2rem; /* add space between title and menu */
+    display: flex;
+    flex-wrap: nowrap; /* keep all items in a single line */
+    gap: 1rem;
+    overflow-x: auto; /* allow horizontal scroll on small screens */
+}
+nav li {
+    /* remove margin since using gap */
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+nav a:hover {
+    text-decoration: underline;
 }
 nav ul {
     list-style: none;
@@ -36,12 +101,12 @@ main {
     margin: 0;
 }
 footer {
-    background-color: #2c3e50;
+    /* transparent footer placed naturally */
+    background-color: transparent;
     color: white;
     text-align: center;
     padding: 1rem;
-    position: fixed;
-    bottom: 0;
+    position: relative;
     width: 100%;
 }
 /* Modal styles */
