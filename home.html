@@ -54,6 +54,40 @@
             <p>Adv. Samridhi Sharma is a legal professional with a strong foundation in legal research, drafting, and litigation-related work. With a research-oriented and analytical approach towards law, she focuses on providing clear legal insights and contributing to informed legal discussions. She is also actively engaged in legal writing and academic research, with multiple research publications and conference presentations on contemporary legal issues.</p>
         </section>
 
+        <section id="practice" class="practice-areas">
+            <h2>Practice Areas</h2>
+            <ul class="practice-list">
+                <li class="practice-item">
+                    <span class="icon">⚖️</span>
+                    <div class="content">
+                        <h3>Legal Research</h3>
+                        <p>Comprehensive legal research and case law analysis across various fields of law.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="icon">⚖️</span>
+                    <div class="content">
+                        <h3>Legal Drafting</h3>
+                        <p>Drafting of legal notices, applications, agreements, and other legal documents.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="icon">⚖️</span>
+                    <div class="content">
+                        <h3>Litigation Support</h3>
+                        <p>Assistance in legal proceedings, case preparation, and documentation.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="icon">⚖️</span>
+                    <div class="content">
+                        <h3>Constitutional and Civil Law</h3>
+                        <p>Research and legal insights on constitutional principles and civil law matters.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
         <section id="services">
             <h2>Our Services</h2>
             <ul>
@@ -112,6 +146,27 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+        // Scroll animation for practice areas
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = entry.target.querySelectorAll('.practice-item');
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, index * 300); // 300ms delay between each item
+                    });
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe the practice areas section
+        const practiceSection = document.getElementById('practice');
+        if (practiceSection) {
+            observer.observe(practiceSection);
         }
     </script>
 </body>

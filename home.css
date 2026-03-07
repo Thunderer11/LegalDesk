@@ -34,7 +34,7 @@ nav {
     align-items: center;
 }
 .logo-space img {
-    height: 75px; /* larger logo */
+    height: 85px; /* larger logo */
     width: auto;
     display: block;
 }
@@ -246,4 +246,43 @@ section h2 {
     color: #2c3e50;
     border-bottom: 2px solid #3498db;
     padding-bottom: 0.5rem;
+}
+
+/* Practice Areas Section */
+.practice-areas {
+    text-align: center;
+}
+.practice-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.practice-item {
+    background-color: rgba(255,255,255,0.9);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.practice-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.practice-item .icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.practice-item .content h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+.practice-item .content p {
+    color: #555;
+    line-height: 1.6;
 }
