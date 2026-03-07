@@ -950,3 +950,105 @@ section h2 {
     color: #2c3e50;
     cursor: pointer;
 }
+
+/* --- Mobile Responsiveness --- */
+
+@media (max-width: 768px) {
+    /* Navigation Bar */
+    nav {
+        padding: 1rem;
+        flex-direction: column;
+        background-color: rgba(44, 62, 80, 0.95); /* Semi-transparent dark bg for mobile */
+    }
+    
+    .logo-space img {
+        height: 60px;
+    }
+    
+    .nav-header {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+    
+    .site-title h1 {
+        font-size: 1.3rem;
+        white-space: normal; /* Allow wrapping on very small screens */
+        text-align: center;
+    }
+    
+    nav ul {
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 120px 15px 60px; /* Add top padding to account for taller mobile nav */
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero .description {
+        font-size: 1rem;
+    }
+
+    /* General Typography & Spacing */
+    section h2 {
+        font-size: 2rem !important;
+    }
+    
+    .practice-section,
+    .publications-research,
+    .legal-insights,
+    .about-section,
+    .consultation-section,
+    .contact-section {
+        padding: 3rem 1.5rem;
+    }
+
+    /* Intro Section */
+    .intro {
+        padding: 2rem 1.5rem;
+    }
+
+    /* Publications Outline */
+    .publications-list::before {
+        left: 0; /* Move the timeline line to the left edge */
+    }
+    
+    .publication-item {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        text-align: left !important;
+        transform: translateX(0) !important;
+    }
+    
+    .publication-item:nth-child(even), 
+    .publication-item:nth-child(odd) {
+        left: 0;
+        padding-left: 3rem; /* Space for the timeline dot */
+    }
+
+    .publication-item::after {
+        left: -10px !important; /* Place dot on the left line */
+        right: auto !important;
+    }
+
+    /* Contact Details */
+    .contact-details-vertical {
+        align-items: center; /* Center items on mobile */
+    }
+    
+    .contact-item {
+        width: 100%;
+        max-width: 350px;
+    }
+}
