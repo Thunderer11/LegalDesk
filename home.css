@@ -6,26 +6,32 @@ body {
     padding: 0;
     line-height: 1.6;
     color: #333;
-    overflow-x: hidden; /* prevent horizontal scroll */
+    overflow-x: hidden;
+    /* prevent horizontal scroll */
 }
+
 header {
     background-color: #2c3e50;
     color: white;
     padding: 1rem;
     text-align: center;
 }
+
 nav {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     box-sizing: border-box;
-    background-color: transparent; /* fully transparent */
-    padding: 0.5rem 1rem;
+    background-color: transparent;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
-    z-index: 2;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    z-index: 100;
 }
+
 .logo-space {
     color: white;
     font-weight: bold;
@@ -33,6 +39,7 @@ nav {
     display: flex;
     align-items: center;
 }
+
 .logo-space img {
     height: 85px;
     width: auto;
@@ -53,23 +60,23 @@ nav {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: white;
-    white-space: nowrap; /* single line */
+    white-space: nowrap;
+    /* single line */
 }
 
 .site-title p {
-    display: none; /* remove subtitle text */
+    display: none;
+    /* remove subtitle text */
 }
 
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-left: auto; /* push menu to the right */
-    padding-left: 2rem; /* add space between title and menu */
     display: flex;
-    flex-wrap: nowrap; /* keep all items in a single line */
-    gap: 1rem;
-    overflow-x: auto; /* allow horizontal scroll on small screens */
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 nav li {
@@ -85,12 +92,15 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+
 main {
     padding: 0;
     width: 100%;
-    max-width: none; /* allow full-width content */
+    max-width: none;
+    /* allow full-width content */
     margin: 0;
 }
+
 footer {
     /* transparent footer placed naturally */
     background-color: transparent;
@@ -100,6 +110,7 @@ footer {
     position: relative;
     width: 100%;
 }
+
 /* Modal styles */
 .modal {
     display: none;
@@ -110,8 +121,9 @@ footer {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
@@ -121,6 +133,7 @@ footer {
     max-width: 500px;
     border-radius: 5px;
 }
+
 .close {
     color: #aaa;
     float: right;
@@ -128,9 +141,11 @@ footer {
     font-weight: bold;
     cursor: pointer;
 }
+
 .close:hover {
     color: black;
 }
+
 .accept-btn {
     background-color: #4CAF50;
     color: white;
@@ -140,9 +155,11 @@ footer {
     cursor: pointer;
     margin-top: 10px;
 }
+
 .accept-btn:hover {
     background-color: #45a049;
 }
+
 /* Hero Section Styles */
 .hero {
     background-image: url('Hero.jpeg');
@@ -152,7 +169,8 @@ footer {
     color: white;
     text-align: center;
     padding: 100px 20px;
-    min-height: 100vh; /* fill entire viewport */
+    min-height: 100vh;
+    /* fill entire viewport */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,23 +182,27 @@ footer {
     margin-bottom: 0.5rem;
     font-weight: bold;
 }
+
 .hero .subtitle {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #ecf0f1;
 }
+
 .hero .description {
     font-size: 1.2rem;
     max-width: 800px;
     margin-bottom: 2rem;
     line-height: 1.8;
 }
+
 .hero-buttons {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .btn {
     background-color: transparent;
     color: white;
@@ -195,6 +217,7 @@ footer {
     position: relative;
     z-index: 10;
 }
+
 /* Hover effects temporarily disabled for buttons */
 .btn:hover,
 .btn:focus {
@@ -207,12 +230,7 @@ footer {
     outline: none;
 }
 
-.topics-list li:nth-child(1) { top: 4%; left: 7%; }
-.topics-list li:nth-child(2) { top: 10%; right: 8%; }
-.topics-list li:nth-child(3) { top: 32%; left: 13%; }
-.topics-list li:nth-child(4) { top: 38%; right: 13%; }
-.topics-list li:nth-child(5) { top: 62%; left: 19%; }
-.topics-list li:nth-child(6) { top: 68%; right: 19%; }
+/* Removed scattered child positioning styles */
 
 .insights-intro {
     margin: 0 auto;
@@ -221,20 +239,38 @@ footer {
 }
 
 @keyframes shine {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
+
 section h2 {
     color: #2c3e50;
     border-bottom: 2px solid #3498db;
     padding-bottom: 0.5rem;
 }
 
+/* Introduction Section */
+.intro {
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 /* Practice Areas Section */
 .practice-areas {
     text-align: center;
 }
+
 .practice-list {
     list-style: none;
     padding: 0;
@@ -243,28 +279,33 @@ section h2 {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
+
 .practice-item {
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
 .practice-item.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
 .practice-item .icon {
     font-size: 2rem;
     display: block;
     margin-bottom: 0.5rem;
 }
+
 .practice-item .content h3 {
     color: #2c3e50;
     margin-bottom: 0.5rem;
 }
+
 .practice-item .content p {
     color: #555;
     line-height: 1.6;
@@ -273,14 +314,18 @@ section h2 {
 /* Publications and Research Section */
 .publications-research {
     text-align: center;
-    width: 100%; /* full width */
+    width: 100%;
+    /* full width */
     padding: 4rem 2rem;
     position: relative;
-    background-image: url('publications-hero.jpg'); /* hero image for this section */
+    background-image: url('publications-hero.jpg');
+    /* hero image for this section */
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* optional, to match main hero */
+    background-attachment: fixed;
+    /* optional, to match main hero */
 }
+
 .publications-research::before {
     content: '';
     position: absolute;
@@ -288,32 +333,40 @@ section h2 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(153, 148, 148, 0.4); /*lighter overlay for better image visibility */
+    background-color: rgba(153, 148, 148, 0.4);
+    /*lighter overlay for better image visibility */
     z-index: 1;
 }
-.publications-research > * {
+
+.publications-research>* {
     position: relative;
     z-index: 2;
 }
+
 .publications-research h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
+
 .publications-research .intro-text {
-    font-size: 1.4rem; /* bigger font */
+    font-size: 1.4rem;
+    /* bigger font */
     margin-bottom: 3rem;
-    color: #161616;
+    color: #010101;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
+
 .publications-list {
     list-style: none;
     padding: 0;
     position: relative;
-    max-width: 800px; /* increased width */
+    max-width: 800px;
+    /* increased width */
     margin: 0 auto;
 }
+
 .publications-list::before {
     content: '';
     position: absolute;
@@ -324,27 +377,32 @@ section h2 {
     background-color: #3498db;
     transform: translateX(-50%);
 }
+
 .publication-item {
-    background-color: rgba(255,255,255,0.9);
-    padding: 2rem; /* increased padding */
-    margin: 2rem 0; /* increased margin for more space */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    margin: 2rem 0;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
-    width: calc(50% - 1rem);
+    width: calc(50% - 2rem);
+    box-sizing: border-box;
     opacity: 0;
     transform: translateX(-50px);
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
 .publication-item:nth-child(odd) {
     left: 0;
     text-align: right;
     margin-right: 1rem;
 }
+
 .publication-item:nth-child(even) {
     left: 50%;
     margin-left: 1rem;
 }
+
 .publication-item::after {
     content: '';
     position: absolute;
@@ -355,12 +413,15 @@ section h2 {
     border-radius: 50%;
     transform: translateY(-50%);
 }
+
 .publication-item:nth-child(odd)::after {
     right: -10px;
 }
+
 .publication-item:nth-child(even)::after {
     left: -10px;
 }
+
 .publication-item.visible {
     opacity: 1;
     transform: translateX(0);
@@ -371,15 +432,36 @@ section h2 {
     text-align: center;
     width: 100%;
     padding: 4rem 2rem;
-    background-color: rgba(255,255,255,0.85);
+    background-image: url('legalInsight-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     position: relative;
 }
+
+.legal-insights::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+.legal-insights>* {
+    position: relative;
+    z-index: 2;
+}
+
 .legal-insights h2 {
     color: #2c3e50;
     border-bottom: 2px solid #3498db;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
 }
+
 .insights-intro {
     font-size: 1.2rem;
     max-width: 800px;
@@ -387,63 +469,83 @@ section h2 {
     line-height: 1.6;
     color: #333;
 }
+
 .topics {
-    margin-bottom: 3rem;
+    margin: 0 auto 3rem;
     position: relative;
-    height: 500px; /* increased height for better spacing */
-    pointer-events: none;
+    max-width: 1200px;
+    /* added to contain grid */
 }
+
 .topics h3 {
     font-size: 1.5rem;
     color: #2c3e50;
     margin-bottom: 2rem;
 }
+
 .topics-list {
     list-style: none;
     padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* explicit 3 columns on large screens */
+    gap: 2rem;
 }
+
+@media (max-width: 900px) {
+    .topics-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .topics-list {
+        grid-template-columns: 1fr;
+    }
+}
+
 .topics-list li {
-    background-color: rgba(52, 152, 219, 0.1);
-    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem;
     border-radius: 8px;
     border-left: 4px solid #3498db;
-    text-align: center;
+    text-align: left;
     font-weight: 500;
-    position: absolute;
     opacity: 0;
-    transform: scale(0.8);
-
-    transition: opacity 0.6s ease, transform 0.6s ease;    width: 250px; /* fixed width for better filling */
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
+
+.topic-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
 .topics-list li h4 {
     font-size: 1.2rem;
     margin: 0 0 0.5rem 0;
     color: #2c3e50;
 }
+
 .topics-list li p {
     font-size: 0.9rem;
     margin: 0;
     color: #555;
-    line-height: 1.4;}
+    line-height: 1.4;
+}
+
 .topics-list li.visible {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
 }
-/* Position topics scattered */
-.topics-list li:nth-child(1) { top: 4%; left: 18%; }
-.topics-list li:nth-child(2) { top: 10%; right: 18%; }
-.topics-list li:nth-child(3) { top: 32%; left: 24%; }
-.topics-list li:nth-child(4) { top: 38%; right: 24%; }
-.topics-list li:nth-child(5) { top: 62%; left: 30%; }
-.topics-list li:nth-child(6) { top: 68%; right: 30%; }
+
 .insights-btn {
-    background-color: #3498db; /* make button visible */
+    background-color: #3498db;
+    /* make button visible */
     color: white;
     padding: 12px 24px;
     text-decoration: none;
@@ -457,12 +559,14 @@ section h2 {
     position: relative;
     z-index: 10;
 }
+
 .insights-btn:hover {
     background-color: #2980b9;
     cursor: pointer;
 }
+
 .topics-list li.visible:hover {
     /* hover disabled: keep visible state but no extra transform or shadow */
-    box-shadow: 0 8px 24px 0 rgba(52,152,219,0.10);
+    box-shadow: 0 8px 24px 0 rgba(52, 152, 219, 0.10);
     transform: none !important;
 }
