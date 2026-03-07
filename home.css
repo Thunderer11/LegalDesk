@@ -202,37 +202,47 @@ footer {
     transition: background-color 0.3s, color 0.3s;
 }
 .btn:hover {
-    background-color: rgba(255,255,255,0.2);
-}
-.btn.secondary {
-    /* same style as primary but could use a lighter border if desired */
-}
-.btn.secondary:hover {
-    background-color: rgba(255,255,255,0.2);
-}
-/* Other sections */
-section {
-    padding: 2rem;
-    background-color: rgba(255,255,255,0.85); /* light transparency so hero is slightly visible */
+    background: linear-gradient(135deg, #e3f0fa 60%, #fafdff 100%);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(52,152,219,0.10), 0 1.5px 6px 0 rgba(44,62,80,0.08);
+    border: none;
+    text-align: left;
+    font-weight: 600;
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s cubic-bezier(.4,2,.6,1), transform 0.6s cubic-bezier(.4,2,.6,1);
+    width: 320px;
+    max-width: 90vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-bottom: 4px solid #3498db;
+    filter: drop-shadow(0 2px 8px rgba(52,152,219,0.08));
 }
 
-/* Introduction section specific */
-.intro {
-    text-align: center;
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    color: #2266a5;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
     padding: 4rem 2rem;
 }
-.intro h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    background: linear-gradient(90deg, #3498db, #e74c3c);
+    font-size: 1rem;
+    margin: 0;
+    color: #3a3a3a;
+    line-height: 1.5;
+    font-weight: 400;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 3s infinite;
-    margin-bottom: 1rem;
-}
-.intro p {
-    max-width: 800px;
+.topics-list li:nth-child(1) { top: 4%; left: 7%; }
+.topics-list li:nth-child(2) { top: 10%; right: 8%; }
+.topics-list li:nth-child(3) { top: 32%; left: 13%; }
+.topics-list li:nth-child(4) { top: 38%; right: 13%; }
+.topics-list li:nth-child(5) { top: 62%; left: 19%; }
+.topics-list li:nth-child(6) { top: 68%; right: 19%; }
     margin: 0 auto;
     font-size: 1.1rem;
     line-height: 1.6;
@@ -306,7 +316,7 @@ section h2 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255,255,255,0.4); /* lighter overlay for better image visibility */
+    background-color: rgba(153, 148, 148, 0.4); /*lighter overlay for better image visibility */
     z-index: 1;
 }
 .publications-research > * {
@@ -320,7 +330,7 @@ section h2 {
 .publications-research .intro-text {
     font-size: 1.4rem; /* bigger font */
     margin-bottom: 3rem;
-    color: #333;
+    color: #161616;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -382,4 +392,94 @@ section h2 {
 .publication-item.visible {
     opacity: 1;
     transform: translateX(0);
+}
+
+/* Legal Insights Section */
+.legal-insights {
+    text-align: center;
+    width: 100%;
+    padding: 4rem 2rem;
+    background-color: rgba(255,255,255,0.85);
+    position: relative;
+}
+.legal-insights h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+.insights-intro {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+    color: #333;
+}
+.topics {
+    margin-bottom: 3rem;
+    position: relative;
+    height: 500px; /* increased height for better spacing */
+}
+.topics h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+.topics-list {
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.topics-list li {
+    background-color: rgba(52, 152, 219, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    text-align: center;
+    font-weight: 500;
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease, transform 0.6s ease;    width: 250px; /* fixed width for better filling */
+    box-sizing: border-box;
+}
+.topics-list li h4 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    color: #2c3e50;
+}
+.topics-list li p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #555;
+    line-height: 1.4;}
+.topics-list li.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+/* Position topics scattered */
+.topics-list li:nth-child(1) { top: 4%; left: 18%; }
+.topics-list li:nth-child(2) { top: 10%; right: 18%; }
+.topics-list li:nth-child(3) { top: 32%; left: 24%; }
+.topics-list li:nth-child(4) { top: 38%; right: 24%; }
+.topics-list li:nth-child(5) { top: 62%; left: 30%; }
+.topics-list li:nth-child(6) { top: 68%; right: 30%; }
+.insights-btn {
+    background-color: #3498db; /* make button visible */
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: inline-block;
+    margin-top: 2rem;
+}
+.insights-btn:hover {
+    background-color: #2980b9;
 }

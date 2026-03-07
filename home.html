@@ -99,6 +99,41 @@
             </ul>
         </section>
 
+        <section id="insights" class="legal-insights">
+            <h2>Legal Insights</h2>
+            <p class="insights-intro">Stay updated with legal developments, case analysis, and discussions on contemporary legal issues through regularly published articles.</p>
+            <div class="topics">
+                <h3>Topics include:</h3>
+                <ul class="topics-list">
+                    <li>
+                        <h4>Constitutional law</h4>
+                        <p>Analysis of fundamental rights, constitutional principles, and judicial interpretations.</p>
+                    </li>
+                    <li>
+                        <h4>Criminal justice developments</h4>
+                        <p>Updates on criminal law reforms, case precedents, and justice system advancements.</p>
+                    </li>
+                    <li>
+                        <h4>Cyber law and technology law</h4>
+                        <p>Insights into digital rights, data security, and emerging technology regulations.</p>
+                    </li>
+                    <li>
+                        <h4>Data protection and privacy law</h4>
+                        <p>Discussions on privacy rights, data handling laws, and compliance requirements.</p>
+                    </li>
+                    <li>
+                        <h4>Family law</h4>
+                        <p>Guidance on marriage, divorce, child custody, and family-related legal matters.</p>
+                    </li>
+                    <li>
+                        <h4>Civil and commercial law</h4>
+                        <p>Explanations of contract law, business disputes, and commercial transactions.</p>
+                    </li>
+                </ul>
+            </div>
+            <a href="#resources" class="btn insights-btn">Read Articles</a>
+        </section>
+
         <section id="services">
             <h2>Our Services</h2>
             <ul>
@@ -163,7 +198,7 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const items = entry.target.querySelectorAll('.practice-item, .publication-item');
+                    const items = entry.target.querySelectorAll('.practice-item, .publication-item, .topics-list li');
                     items.forEach((item, index) => {
                         setTimeout(() => {
                             item.classList.add('visible');
@@ -184,6 +219,12 @@
         const publicationsSection = document.getElementById('publications');
         if (publicationsSection) {
             observer.observe(publicationsSection);
+        }
+
+        // Observe the insights section
+        const insightsSection = document.getElementById('insights');
+        if (insightsSection) {
+            observer.observe(insightsSection);
         }
     </script>
 </body>
