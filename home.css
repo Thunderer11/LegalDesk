@@ -457,6 +457,7 @@ section h2 {
 
 .legal-insights h2 {
     color: #2c3e50;
+    display: inline-block;
     border-bottom: 2px solid #3498db;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
@@ -495,12 +496,14 @@ section h2 {
 @media (max-width: 900px) {
     .topics-list {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
     }
 }
 
 @media (max-width: 600px) {
     .topics-list {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 }
 
@@ -602,10 +605,23 @@ section h2 {
 
 .practice-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .practice-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .practice-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
 }
 
 .practice-card {
@@ -1148,6 +1164,22 @@ section h2 {
     .social-section,
     .contact-section {
         padding: 3rem 1.5rem;
+    }
+
+    /* Practice Grid on mobile */
+    .practice-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    /* Topics container on mobile */
+    .topics {
+        padding: 0;
+    }
+
+    /* Legal Insights h2 centering on mobile */
+    .legal-insights h2 {
+        display: block;
     }
 
     /* Intro Section */
