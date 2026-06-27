@@ -951,6 +951,142 @@ section h2 {
     cursor: pointer;
 }
 
+
+/* Social Section Styles */
+.social-section {
+    background-color: #ffffff;
+    padding: 5rem 2rem;
+    text-align: center;
+    border-top: 1px solid #e9ecef;
+}
+
+.social-section h2 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    text-align: center;
+}
+
+.social-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.social-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.social-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-card .social-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.social-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.social-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #718096;
+}
+
+/* Platform-specific brand colors and hovers */
+.social-card.instagram .social-icon-wrapper {
+    background-color: #fdf2f8;
+    color: #E1306C;
+}
+.social-card.instagram:hover {
+    border-color: #E1306C;
+    box-shadow: 0 10px 25px rgba(225, 48, 108, 0.15);
+    transform: translateY(-5px);
+}
+.social-card.instagram:hover .social-icon-wrapper {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    color: #ffffff;
+}
+
+.social-card.youtube .social-icon-wrapper {
+    background-color: #fff5f5;
+    color: #FF0000;
+}
+.social-card.youtube:hover {
+    border-color: #FF0000;
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+.social-card.youtube:hover .social-icon-wrapper {
+    background-color: #FF0000;
+    color: #ffffff;
+}
+
+.social-card.facebook .social-icon-wrapper {
+    background-color: #ebf8ff;
+    color: #1877F2;
+}
+.social-card.facebook:hover {
+    border-color: #1877F2;
+    box-shadow: 0 10px 25px rgba(24, 119, 242, 0.15);
+    transform: translateY(-5px);
+}
+.social-card.facebook:hover .social-icon-wrapper {
+    background-color: #1877F2;
+    color: #ffffff;
+}
+
+.social-card.linkedin .social-icon-wrapper {
+    background-color: #f0f9ff;
+    color: #0077B5;
+}
+.social-card.linkedin:hover {
+    border-color: #0077B5;
+    box-shadow: 0 10px 25px rgba(0, 119, 181, 0.15);
+    transform: translateY(-5px);
+}
+.social-card.linkedin:hover .social-icon-wrapper {
+    background-color: #0077B5;
+    color: #ffffff;
+}
+
 /* --- Mobile Responsiveness --- */
 
 @media (max-width: 768px) {
@@ -1009,6 +1145,7 @@ section h2 {
     .legal-insights,
     .about-section,
     .consultation-section,
+    .social-section,
     .contact-section {
         padding: 3rem 1.5rem;
     }
