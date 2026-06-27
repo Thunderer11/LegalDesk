@@ -24,12 +24,13 @@ nav {
     width: 100%;
     box-sizing: border-box;
     background-color: transparent;
-    padding: 1rem 2rem;
+    padding: 1rem clamp(1rem, 3vw, 2rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     z-index: 100;
+    overflow-x: hidden;
 }
 
 .logo-space {
@@ -77,10 +78,6 @@ nav ul {
     flex-wrap: wrap;
     align-items: center;
     gap: 2.5rem; /* Increased spacing between links */
-}
-
-nav li {
-    /* remove margin since using gap */
 }
 
 nav a {
@@ -431,7 +428,8 @@ section h2 {
 .legal-insights {
     text-align: center;
     width: 100%;
-    padding: 4rem 2rem;
+    padding: 4rem clamp(1rem, 3vw, 2rem);
+    box-sizing: border-box;
     background-image: url('legalInsight-hero.jpg');
     background-size: cover;
     background-position: center;
@@ -474,8 +472,9 @@ section h2 {
 .topics {
     margin: 0 auto 3rem;
     position: relative;
-    max-width: 1200px;
-    /* added to contain grid */
+    max-width: 1120px;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
 }
 
 .topics h3 {
@@ -488,14 +487,14 @@ section h2 {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* explicit 3 columns on large screens */
-    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
 }
 
 @media (max-width: 900px) {
     .topics-list {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1.25rem;
     }
 }
@@ -509,7 +508,7 @@ section h2 {
 
 .topics-list li {
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 1.5rem;
+    padding: 1.25rem 1.1rem;
     border-radius: 8px;
     border-left: 4px solid #3498db;
     text-align: left;
@@ -518,6 +517,7 @@ section h2 {
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
@@ -1202,10 +1202,11 @@ section h2 {
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        padding: 0.75rem 1rem;
+        padding: 0.7rem 0.95rem;
         width: 100%;
         box-sizing: border-box;
         margin-bottom: 0;
+        justify-content: space-between;
     }
 
     .logo-space {
@@ -1217,6 +1218,11 @@ section h2 {
         height: 44px;
     }
 
+    .site-title {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
     .site-title h1 {
         font-size: 1rem;
         white-space: nowrap;
@@ -1225,6 +1231,7 @@ section h2 {
         text-align: left;
         flex: 1;
         min-width: 0;
+        max-width: 100%;
     }
 
     .hamburger {
@@ -1237,11 +1244,13 @@ section h2 {
         flex-direction: column;
         gap: 0;
         width: 100%;
+        max-width: 100%;
         padding: 0.25rem 0 0.75rem;
         border-top: 1px solid rgba(255, 255, 255, 0.12);
         align-items: stretch;
         margin: 0;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     nav ul.nav-open {
@@ -1263,6 +1272,30 @@ section h2 {
     nav ul li a:hover {
         background: rgba(255, 255, 255, 0.08);
         text-decoration: none;
+    }
+
+    .intro,
+    .practice-intro,
+    .about-content,
+    .consultation-section,
+    .contact-section,
+    .social-section {
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .about-content p,
+    .about-content h3 {
+        text-align: center;
+    }
+
+    .practice-card,
+    .topics-list li,
+    .contact-item,
+    .social-card {
+        text-align: center;
     }
 
     /* --- Hero Section --- */
