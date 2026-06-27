@@ -1393,23 +1393,29 @@ section h2 {
 
     .publications-list {
         padding-left: 0;
+        width: 100%;
+        max-width: 100%;
     }
 
     .publications-list::before {
-        left: 10px;
+        left: 8px;
         transform: none;
     }
 
     .publication-item {
         position: relative;
         width: auto;
+        max-width: 100%;
         left: 0 !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        padding: 1rem 1rem 1rem 2.25rem !important;
+        padding: 0.95rem 0.9rem 0.95rem 2rem !important;
         text-align: left !important;
         opacity: 1 !important;
         transform: none !important;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        box-sizing: border-box;
     }
 
     .publication-item:nth-child(odd),
@@ -1567,13 +1573,16 @@ section h2 {
 
     .contact-item {
         width: 100%;
-        max-width: none;
-        padding: 1rem;
+        max-width: 100%;
+        padding: 0.95rem 0.9rem;
+        box-sizing: border-box;
+        align-items: flex-start;
     }
 
     .contact-item .icon {
-        font-size: 1.5rem;
-        margin-right: 0.875rem;
+        font-size: 1.35rem;
+        margin-right: 0.75rem;
+        flex-shrink: 0;
     }
 
     .contact-item h3 {
@@ -1585,8 +1594,10 @@ section h2 {
     }
 
     .contact-form-wrapper {
-        padding: 1.25rem;
+        padding: 1.15rem;
         border-radius: 8px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .form-header h3 {
