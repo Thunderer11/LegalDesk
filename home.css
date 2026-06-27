@@ -1103,59 +1103,204 @@ section h2 {
     color: #ffffff;
 }
 
-/* --- Mobile Responsiveness --- */
+/* =============================================
+   HAMBURGER MENU (shown only on mobile)
+   ============================================= */
+
+.hamburger {
+    display: none; /* Hidden on desktop */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    margin-left: auto; /* Push to the right side of nav-header */
+    flex-shrink: 0;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: white;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+}
+
+/* Animate hamburger into an X when open */
+.hamburger.is-active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger.is-active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburger.is-active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =============================================
+   iOS background-attachment: fixed FALLBACK
+   (fixed backgrounds don't render on iOS Safari)
+   ============================================= */
+@supports (-webkit-touch-callout: none) {
+    .hero,
+    .publications-research,
+    .legal-insights {
+        background-attachment: scroll;
+    }
+}
+
+/* =============================================
+   MOBILE RESPONSIVENESS
+   ============================================= */
 
 @media (max-width: 768px) {
-    /* Navigation Bar */
+
+    /* --- Modal --- */
+    .modal-content {
+        margin: 8% auto;
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    /* --- Navigation --- */
     nav {
-        padding: 1rem;
+        position: fixed; /* Keep nav visible while scrolling on mobile */
+        top: 0;
+        left: 0;
+        right: 0;
         flex-direction: column;
-        background-color: rgba(44, 62, 80, 0.95); /* Semi-transparent dark bg for mobile */
+        align-items: stretch;
+        background-color: rgba(44, 62, 80, 0.98);
+        padding: 0;
+        z-index: 1000;
     }
-    
-    .logo-space img {
-        height: 60px;
-    }
-    
+
     .nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
         width: 100%;
-        justify-content: center;
-        margin-bottom: 1rem;
+        box-sizing: border-box;
+        margin-bottom: 0;
     }
-    
+
+    .logo-space {
+        margin-right: 0;
+    }
+
+    .logo-space img {
+        height: 48px;
+    }
+
     .site-title h1 {
-        font-size: 1.3rem;
-        white-space: normal; /* Allow wrapping on very small screens */
+        font-size: 1.05rem;
+        white-space: nowrap;
+        text-align: left;
+        flex: 1;
+    }
+
+    /* Show hamburger on mobile */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Nav menu: hidden by default, slides down when open */
+    nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        padding: 0.5rem 0 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        align-items: stretch;
+    }
+
+    nav ul.nav-open {
+        display: flex;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition: background 0.2s;
+    }
+
+    nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        text-decoration: none;
+    }
+
+    /* Push main content below the fixed nav */
+    body {
+        padding-top: 70px;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+        padding: 60px 1.25rem 50px;
+        min-height: 100svh; /* Use small viewport height for mobile browsers */
+        background-attachment: scroll; /* Fix iOS blank background bug */
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero .description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 280px;
         text-align: center;
     }
-    
-    nav ul {
-        gap: 1rem;
-        justify-content: center;
+
+    /* --- Modal on mobile --- */
+    .modal-content {
+        margin: 10% auto;
+        width: 92%;
+        padding: 1.5rem;
     }
 
-    /* Hero Section */
-    .hero {
-        padding: 120px 15px 60px; /* Add top padding to account for taller mobile nav */
-    }
-    
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    
-    .hero .subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .hero .description {
-        font-size: 1rem;
-    }
-
-    /* General Typography & Spacing */
+    /* --- General Section Padding --- */
     section h2 {
-        font-size: 2rem !important;
+        font-size: 1.75rem !important;
     }
-    
+
     .practice-section,
     .publications-research,
     .legal-insights,
@@ -1163,61 +1308,193 @@ section h2 {
     .consultation-section,
     .social-section,
     .contact-section {
-        padding: 3rem 1.5rem;
+        padding: 3rem 1.25rem;
     }
 
-    /* Practice Grid on mobile */
+    /* --- Intro Section --- */
+    .intro {
+        padding: 2rem 1.25rem;
+        font-size: 1rem;
+    }
+
+    /* --- Practice Section --- */
+    .practice-intro {
+        margin-bottom: 2rem;
+    }
+
+    .practice-intro h2 {
+        font-size: 1.6rem !important;
+    }
+
     .practice-grid {
         grid-template-columns: 1fr;
-        gap: 1.25rem;
+        gap: 1rem;
     }
 
-    /* Topics container on mobile */
-    .topics {
-        padding: 0;
+    .practice-card {
+        padding: 1.5rem 1.25rem;
     }
 
-    /* Legal Insights h2 centering on mobile */
+    /* --- Publications Timeline --- */
+    .publications-research {
+        background-attachment: scroll; /* Fix iOS blank background bug */
+    }
+
+    .publications-list::before {
+        left: 12px;
+        transform: none;
+    }
+
+    .publication-item {
+        width: 100%;
+        left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+        text-align: left !important;
+        transform: none !important;
+        opacity: 1; /* Skip animation on mobile for reliability */
+    }
+
+    .publication-item:nth-child(odd),
+    .publication-item:nth-child(even) {
+        left: 0;
+        padding-left: 2.5rem;
+    }
+
+    .publication-item::after {
+        left: 3px !important;
+        right: auto !important;
+        top: 1.75rem;
+        transform: none;
+        width: 16px;
+        height: 16px;
+    }
+
+    /* --- Legal Insights Section --- */
+    .legal-insights {
+        background-attachment: scroll; /* Fix iOS blank background bug */
+    }
+
     .legal-insights h2 {
         display: block;
     }
 
-    /* Intro Section */
-    .intro {
-        padding: 2rem 1.5rem;
+    .topics {
+        padding: 0;
+        margin-bottom: 2rem;
     }
 
-    /* Publications Outline */
-    .publications-list::before {
-        left: 0; /* Move the timeline line to the left edge */
-    }
-    
-    .publication-item {
-        width: 100%;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        text-align: left !important;
-        transform: translateX(0) !important;
-    }
-    
-    .publication-item:nth-child(even), 
-    .publication-item:nth-child(odd) {
-        left: 0;
-        padding-left: 3rem; /* Space for the timeline dot */
+    /* --- About Section --- */
+    .about-container {
+        padding: 1.5rem;
     }
 
-    .publication-item::after {
-        left: -10px !important; /* Place dot on the left line */
-        right: auto !important;
+    .about-flex {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
     }
 
-    /* Contact Details */
+    .about-image img {
+        max-width: 260px;
+    }
+
+    .about-content h2 {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+    }
+
+    .interest-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Consultation Section --- */
+    .consultation-section h2 {
+        font-size: 1.75rem;
+    }
+
+    .consultation-section p {
+        font-size: 1rem;
+    }
+
+    /* --- Social Section --- */
+    .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .social-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .social-card h3 {
+        font-size: 1.05rem;
+    }
+
+    .social-card p {
+        font-size: 0.85rem;
+    }
+
+    /* --- Contact Section --- */
+    .contact-container {
+        gap: 2rem;
+    }
+
+    .contact-subtitle {
+        margin-bottom: 2rem;
+        font-size: 1rem;
+    }
+
     .contact-details-vertical {
-        align-items: center; /* Center items on mobile */
+        align-items: stretch;
     }
-    
+
     .contact-item {
         width: 100%;
-        max-width: 350px;
+        max-width: none;
+        padding: 1.25rem;
+    }
+
+    .contact-item .icon {
+        font-size: 1.75rem;
+        margin-right: 1rem;
+    }
+
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+
+    .form-header h3 {
+        font-size: 1.4rem;
+    }
+
+    /* --- Footer --- */
+    footer {
+        font-size: 0.9rem;
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Extra small screens (phones < 400px) */
+@media (max-width: 400px) {
+    .site-title h1 {
+        font-size: 0.9rem;
+    }
+
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .social-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-card {
+        padding: 1.25rem 1rem;
     }
 }
