@@ -765,7 +765,7 @@ section h2 {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
     text-align: left;
 }
@@ -1108,7 +1108,7 @@ section h2 {
    ============================================= */
 
 .hamburger {
-    display: none; /* Hidden on desktop */
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -1121,7 +1121,7 @@ section h2 {
     padding: 4px;
     border-radius: 6px;
     transition: background 0.2s;
-    margin-left: auto; /* Push to the right side of nav-header */
+    margin-left: auto;
     flex-shrink: 0;
 }
 
@@ -1139,7 +1139,6 @@ section h2 {
     transform-origin: center;
 }
 
-/* Animate hamburger into an X when open */
 .hamburger.is-active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -1153,7 +1152,6 @@ section h2 {
 
 /* =============================================
    iOS background-attachment: fixed FALLBACK
-   (fixed backgrounds don't render on iOS Safari)
    ============================================= */
 @supports (-webkit-touch-callout: none) {
     .hero,
@@ -1164,35 +1162,45 @@ section h2 {
 }
 
 /* =============================================
-   MOBILE RESPONSIVENESS
+   TABLET (max 768px)
    ============================================= */
-
 @media (max-width: 768px) {
 
+    /* Fixed nav — push all content down by exact nav height */
+    body {
+        padding-top: 66px;
+    }
+
     /* --- Modal --- */
+    .modal {
+        z-index: 1100;
+    }
+
     .modal-content {
         margin: 8% auto;
         width: 90%;
         padding: 1.5rem;
+        box-sizing: border-box;
     }
 
     /* --- Navigation --- */
     nav {
-        position: fixed; /* Keep nav visible while scrolling on mobile */
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
+        width: 100%;
         flex-direction: column;
         align-items: stretch;
         background-color: rgba(44, 62, 80, 0.98);
         padding: 0;
         z-index: 1000;
+        box-sizing: border-box;
     }
 
     .nav-header {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
         gap: 0.75rem;
         padding: 0.75rem 1rem;
         width: 100%;
@@ -1202,33 +1210,38 @@ section h2 {
 
     .logo-space {
         margin-right: 0;
+        flex-shrink: 0;
     }
 
     .logo-space img {
-        height: 48px;
+        height: 44px;
     }
 
     .site-title h1 {
-        font-size: 1.05rem;
+        font-size: 1rem;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         text-align: left;
         flex: 1;
+        min-width: 0;
     }
 
-    /* Show hamburger on mobile */
     .hamburger {
         display: flex;
     }
 
-    /* Nav menu: hidden by default, slides down when open */
+    /* Nav menu hidden by default */
     nav ul {
         display: none;
         flex-direction: column;
         gap: 0;
         width: 100%;
-        padding: 0.5rem 0 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 0.25rem 0 0.75rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
         align-items: stretch;
+        margin: 0;
+        box-sizing: border-box;
     }
 
     nav ul.nav-open {
@@ -1241,8 +1254,8 @@ section h2 {
 
     nav ul li a {
         display: block;
-        padding: 0.85rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.8rem 1.25rem;
+        font-size: 0.95rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         transition: background 0.2s;
     }
@@ -1252,29 +1265,28 @@ section h2 {
         text-decoration: none;
     }
 
-    /* Push main content below the fixed nav */
-    body {
-        padding-top: 70px;
-    }
-
     /* --- Hero Section --- */
     .hero {
-        padding: 60px 1.25rem 50px;
-        min-height: 100svh; /* Use small viewport height for mobile browsers */
-        background-attachment: scroll; /* Fix iOS blank background bug */
+        /* Don't add extra padding-top here — body padding-top handles offset */
+        padding: 2rem 1.25rem 3rem;
+        min-height: calc(100svh - 66px);
+        background-attachment: scroll;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.9rem;
+        margin-bottom: 0.5rem;
     }
 
     .hero .subtitle {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+        margin-bottom: 0.75rem;
     }
 
     .hero .description {
         font-size: 0.95rem;
         line-height: 1.7;
+        margin-bottom: 1.5rem;
     }
 
     .hero-buttons {
@@ -1285,22 +1297,18 @@ section h2 {
 
     .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 260px;
         text-align: center;
+        padding: 10px 20px;
     }
 
-    /* --- Modal on mobile --- */
-    .modal-content {
-        margin: 10% auto;
-        width: 92%;
-        padding: 1.5rem;
-    }
-
-    /* --- General Section Padding --- */
+    /* --- General Section Headings --- */
     section h2 {
-        font-size: 1.75rem !important;
+        font-size: 1.6rem !important;
     }
 
+    /* --- General Section Padding (uniform baseline) --- */
+    .intro,
     .practice-section,
     .publications-research,
     .legal-insights,
@@ -1308,72 +1316,79 @@ section h2 {
     .consultation-section,
     .social-section,
     .contact-section {
-        padding: 3rem 1.25rem;
+        padding: 2.5rem 1rem;
     }
 
-    /* --- Intro Section --- */
+    /* --- Intro --- */
     .intro {
-        padding: 2rem 1.25rem;
         font-size: 1rem;
     }
 
     /* --- Practice Section --- */
     .practice-intro {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .practice-intro h2 {
-        font-size: 1.6rem !important;
+        font-size: 1.5rem !important;
     }
 
     .practice-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.875rem;
     }
 
     .practice-card {
-        padding: 1.5rem 1.25rem;
+        padding: 1.25rem 1rem;
+    }
+
+    .practice-card h3 {
+        font-size: 1.15rem;
     }
 
     /* --- Publications Timeline --- */
     .publications-research {
-        background-attachment: scroll; /* Fix iOS blank background bug */
+        background-attachment: scroll;
+    }
+
+    .publications-list {
+        padding-left: 0;
     }
 
     .publications-list::before {
-        left: 12px;
+        left: 10px;
         transform: none;
     }
 
     .publication-item {
-        width: 100%;
+        position: relative;
+        width: auto;
         left: 0 !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+        padding: 1rem 1rem 1rem 2.25rem !important;
         text-align: left !important;
+        opacity: 1 !important;
         transform: none !important;
-        opacity: 1; /* Skip animation on mobile for reliability */
     }
 
     .publication-item:nth-child(odd),
     .publication-item:nth-child(even) {
         left: 0;
-        padding-left: 2.5rem;
     }
 
     .publication-item::after {
-        left: 3px !important;
+        left: 1px !important;
         right: auto !important;
-        top: 1.75rem;
+        top: 1.25rem;
         transform: none;
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
 
     /* --- Legal Insights Section --- */
     .legal-insights {
-        background-attachment: scroll; /* Fix iOS blank background bug */
+        background-attachment: scroll;
     }
 
     .legal-insights h2 {
@@ -1382,119 +1397,228 @@ section h2 {
 
     .topics {
         padding: 0;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .topics h3 {
+        font-size: 1.15rem;
+        margin-bottom: 1rem;
     }
 
     /* --- About Section --- */
+    .about-section {
+        padding: 2rem 1rem;
+    }
+
     .about-container {
-        padding: 1.5rem;
+        padding: 1.25rem;
+        border-radius: 8px;
     }
 
     .about-flex {
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
         align-items: center;
     }
 
+    .about-image {
+        position: static;
+    }
+
     .about-image img {
-        max-width: 260px;
+        max-width: 220px;
+        border-radius: 50%;
     }
 
     .about-content h2 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         text-align: center;
+        display: block;
+    }
+
+    .about-content h3 {
+        font-size: 1.25rem;
     }
 
     .about-content p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .about-divider {
+        margin: 1.5rem 0;
     }
 
     .interest-list {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .interest-list li {
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem;
     }
 
     /* --- Consultation Section --- */
     .consultation-section h2 {
-        font-size: 1.75rem;
+        font-size: 1.5rem !important;
+        border-bottom: none;
     }
 
     .consultation-section p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 0;
     }
 
     /* --- Social Section --- */
+    .social-section h2 {
+        font-size: 1.5rem !important;
+        border-bottom: none;
+    }
+
+    .social-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
     .social-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 0.875rem;
     }
 
     .social-card {
-        padding: 1.5rem 1rem;
+        padding: 1.25rem 0.75rem;
+    }
+
+    .social-card .social-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0.875rem;
     }
 
     .social-card h3 {
-        font-size: 1.05rem;
+        font-size: 1rem;
     }
 
     .social-card p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 
     /* --- Contact Section --- */
-    .contact-container {
-        gap: 2rem;
+    .contact-section h2 {
+        font-size: 1.5rem !important;
+        border-bottom: none;
     }
 
     .contact-subtitle {
-        margin-bottom: 2rem;
-        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .contact-container {
+        gap: 1.5rem;
     }
 
     .contact-details-vertical {
         align-items: stretch;
+        gap: 0.875rem;
     }
 
     .contact-item {
         width: 100%;
         max-width: none;
-        padding: 1.25rem;
+        padding: 1rem;
     }
 
     .contact-item .icon {
-        font-size: 1.75rem;
-        margin-right: 1rem;
+        font-size: 1.5rem;
+        margin-right: 0.875rem;
+    }
+
+    .contact-item h3 {
+        font-size: 1rem;
+    }
+
+    .contact-item p {
+        font-size: 0.9rem;
     }
 
     .contact-form-wrapper {
-        padding: 1.5rem;
+        padding: 1.25rem;
+        border-radius: 8px;
     }
 
     .form-header h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .submit-btn {
+        padding: 12px;
+        font-size: 1rem;
     }
 
     /* --- Footer --- */
     footer {
-        font-size: 0.9rem;
-        padding: 1.5rem 1rem;
+        background-color: #2c3e50;
+        font-size: 0.85rem;
+        padding: 1.25rem 1rem;
     }
 }
 
-/* Extra small screens (phones < 400px) */
+/* =============================================
+   EXTRA SMALL PHONES (max 400px)
+   ============================================= */
 @media (max-width: 400px) {
+
+    body {
+        padding-top: 60px;
+    }
+
+    .logo-space img {
+        height: 36px;
+    }
+
     .site-title h1 {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        min-height: calc(100svh - 60px);
     }
 
     .hero h1 {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
+    }
+
+    .hero .subtitle {
+        font-size: 0.95rem;
     }
 
     .social-grid {
         grid-template-columns: 1fr;
     }
 
-    .practice-card {
-        padding: 1.25rem 1rem;
+    .social-card {
+        flex-direction: row;
+        align-items: center;
+        padding: 1rem;
+        gap: 0.75rem;
+        text-align: left;
+    }
+
+    .social-card .social-icon-wrapper {
+        margin-bottom: 0;
+        flex-shrink: 0;
     }
 }
