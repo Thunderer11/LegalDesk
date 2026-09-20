@@ -9,23 +9,27 @@ const PORT = 5000;
 
 const sql = neon(process.env.DATABASE_URL);
 
+// Home route
 app.get("/", (req, res) => {
     res.send("LegalDesk backend is running!");
 });
 
-app.get("/test-db", async (req, res) => {
+// Get all published blogs
+app.get("/api/blogs", async (req, res) => {
     try {
-        const result = await sql`SELECT NOW()`;
+        const blogs = await sql`
+            SELECT *
+            FROM blogs
+            WHERE published = true
+            ORDER BY created_at DESC
+        `;
 
-        res.json({
-            message: "Database connected successfully!",
-            time: result[0].now
-        });
+        res.json(blogs);
     } catch (error) {
-        console.error("Database connection error:", error);
+        console.error("Error fetching blogs:", error);
 
         res.status(500).json({
-            message: "Database connection failed."
+            message: "Failed to fetch blogs."
         });
     }
 });
