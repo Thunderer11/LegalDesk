@@ -337,6 +337,56 @@
                 ]
             }
         });
+        const urlParams = new URLSearchParams(window.location.search);
+        const blogId = urlParams.get("id");
+        async function loadBlog(id) {
+            try {
+                const response = await fetch(
+                    `http://localhost:5000/api/admin/blogs`,
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to load blogs.");
+                }
+
+                const blogs = await response.json();
+
+                const blog = blogs.find(
+                    item => String(item.id) === String(id)
+                );
+
+                if (!blog) {
+                    message.textContent = "Blog not found.";
+                    return;
+                }
+
+                document.getElementById("title").value = blog.title;
+                document.getElementById("slug").value = blog.slug;
+                document.getElementById("category").value = blog.category || "";
+                document.getElementById("excerpt").value = blog.excerpt || "";
+
+                quill.root.innerHTML = blog.content || "";
+
+                document.getElementById("published").checked =
+                    blog.published;
+
+            } catch (error) {
+
+                console.error("Load blog error:", error);
+
+                message.textContent = "Failed to load blog.";
+
+            }
+        }
+        if (blogId) {
+            document.querySelector(".form-card h2").textContent = "Edit Blog";
+            createButton.textContent = "Save Changes";
+            loadBlog(blogId);
+        }
         // Create the blog
         blogForm.addEventListener("submit", async (event) => {
 
@@ -361,13 +411,15 @@
             };
 
             try {
+                const url = blogId
+                    ? `http://localhost:5000/api/blogs/${blogId}`
+                    : "http://localhost:5000/api/blogs";
 
-                const response = await fetch(
-                    "http://localhost:5000/api/blogs",
-                    {
-                        method: "POST",
+                const method = blogId ? "PUT" : "POST";
 
-                        headers: {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
                             "Content-Type": "application/json"
                         },
 
@@ -385,8 +437,9 @@
                     );
                 }
 
-                message.textContent = "Blog created successfully!";
-
+                message.textContent = blogId
+                    ? "Blog updated successfully!"
+                    : "Blog created successfully!";
                 setTimeout(() => {
                     window.location.href = "dashboard.html";
                 }, 1000);
