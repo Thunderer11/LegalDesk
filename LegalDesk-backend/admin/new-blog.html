@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>New Blog | Samridhi's LegalDesk</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f1e8;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-card h2 {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #555;
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        #content {
+            min-height: 350px;
+        }
+
+        .publish-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .publish-row input {
+            width: auto;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        #createButton {
+            background: #222;
+            color: white;
+        }
+
+        #createButton:hover {
+            background: #444;
+        }
+
+        #cancelButton {
+            background: #eee;
+            color: #222;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 20px;
+            min-height: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Samridhi's LegalDesk — Admin</h1>
+
+        <a href="dashboard.html" class="back-link">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+    <main class="container">
+
+        <div class="form-card">
+
+            <h2>Create New Blog</h2>
+
+            <form id="blogForm">
+
+                <div class="form-group">
+                    <label for="title">Title</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Enter blog title"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="slug">Slug</label>
+
+                    <input
+                        type="text"
+                        id="slug"
+                        placeholder="example-blog-title"
+                        required
+                    >
+
+                    <small>
+                        This is generated automatically from the title.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+
+                    <select id="category" required>
+                        <option value="">Select category</option>
+                        <option value="Constitutional Law">
+                            Constitutional Law
+                        </option>
+                        <option value="Criminal Law">
+                            Criminal Law
+                        </option>
+                        <option value="Cyber Law">
+                            Cyber Law
+                        </option>
+                        <option value="Data Protection">
+                            Data Protection
+                        </option>
+                        <option value="Family Law">
+                            Family Law
+                        </option>
+                        <option value="Civil & Commercial Law">
+                            Civil & Commercial Law
+                        </option>
+                        <option value="Other">
+                            Other
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="excerpt">Excerpt</label>
+
+                    <textarea
+                        id="excerpt"
+                        placeholder="Short description of the blog..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Content</label>
+
+                    <textarea
+                        id="content"
+                        placeholder="Write your blog content here..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="publish-row">
+                    <input
+                        type="checkbox"
+                        id="published"
+                    >
+
+                    <label for="published">
+                        Publish immediately
+                    </label>
+                </div>
+
+                <div class="actions">
+
+                    <button type="submit" id="createButton">
+                        Create Blog
+                    </button>
+
+                    <button type="button" id="cancelButton">
+                        Cancel
+                    </button>
+
+                </div>
+
+                <div id="message"></div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <script>
+
+        const blogForm = document.getElementById("blogForm");
+        const createButton = document.getElementById("createButton");
+        const cancelButton = document.getElementById("cancelButton");
+        const message = document.getElementById("message");
+
+
+        // Check whether the admin is logged in
+        async function checkAuthentication() {
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/api/auth/me",
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+                if (!response.ok) {
+                    window.location.href = "login.html";
+                }
+
+            } catch (error) {
+
+                console.error("Authentication check failed:", error);
+
+                window.location.href = "login.html";
+            }
+        }
+        const titleInput = document.getElementById("title");
+        const slugInput = document.getElementById("slug");
+
+        titleInput.addEventListener("input", () => {
+
+            const slug = titleInput.value
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, "")
+                .replace(/\s+/g, "-")
+                .replace(/-+/g, "-");
+
+            slugInput.value = slug;
+        });
+
+        // Create the blog
+        blogForm.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            createButton.disabled = true;
+            createButton.textContent = "Creating...";
+            message.textContent = "";
+
+            const blogData = {
+                title: document.getElementById("title").value,
+                slug: document.getElementById("slug").value,
+                excerpt: document.getElementById("excerpt").value,
+                content: document.getElementById("content").value,
+                category: document.getElementById("category").value,
+                published: document.getElementById("published").checked
+            };
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/api/blogs",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        credentials: "include",
+
+                        body: JSON.stringify(blogData)
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Failed to create blog."
+                    );
+                }
+
+                message.textContent = "Blog created successfully!";
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+
+            } catch (error) {
+
+                console.error("Create blog error:", error);
+
+                message.textContent = error.message;
+
+            } finally {
+
+                createButton.disabled = false;
+                createButton.textContent = "Create Blog";
+
+            }
+        });
+
+
+        // Cancel button
+        cancelButton.addEventListener("click", () => {
+            window.location.href = "dashboard.html";
+        });
+
+
+        checkAuthentication();
+
+    </script>
+
+</body>
+</html>

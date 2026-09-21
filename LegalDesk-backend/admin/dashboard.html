@@ -268,7 +268,10 @@
                 alert("Logout will be implemented next.");
 
             });
-
+        document.getElementById("newBlogButton")
+        .addEventListener("click", () => {
+            window.location.href = "new-blog.html";
+        });
 
             checkAuthentication();
             loadBlogs();
