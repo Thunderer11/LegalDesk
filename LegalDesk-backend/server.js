@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("./middleware/authMiddleware");
 const cors = require("cors");
+const sanitizeHtml = require("sanitize-html");
 
 dotenv.config();
 
@@ -58,6 +59,28 @@ app.post("/api/blogs", authMiddleware, async (req, res) => {
             author,
             published
         } = req.body;
+        const cleanContent = sanitizeHtml(content, {
+        allowedTags: [
+            "p",
+            "br",
+            "strong",
+            "em",
+            "u",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "blockquote",
+            "ul",
+            "ol",
+            "li",
+            "a"
+        ],
+        allowedAttributes: {
+            a: ["href", "target", "rel"]
+        },
+        allowedSchemes: ["http", "https", "mailto"]
+    });
 
         const newBlog = await sql`
             INSERT INTO blogs (
@@ -74,7 +97,7 @@ app.post("/api/blogs", authMiddleware, async (req, res) => {
                 ${title},
                 ${slug},
                 ${excerpt},
-                ${content},
+                ${cleanContent},
                 ${category},
                 ${cover_image},
                 ${author || "Adv. Samridhi Sharma"},

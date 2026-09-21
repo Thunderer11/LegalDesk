@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>New Blog | Samridhi's LegalDesk</title>
-
+    <link
+        href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css"
+        rel="stylesheet"
+    />
     <style>
         * {
             box-sizing: border-box;
@@ -141,6 +144,16 @@
             min-height: 20px;
             font-size: 14px;
         }
+        #editor {
+            min-height: 350px;
+            background: white;
+        }
+
+        .ql-editor {
+            min-height: 350px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
     </style>
 </head>
 
@@ -230,11 +243,7 @@
                 <div class="form-group">
                     <label for="content">Content</label>
 
-                    <textarea
-                        id="content"
-                        placeholder="Write your blog content here..."
-                        required
-                    ></textarea>
+                    <div id="editor"></div>
                 </div>
 
                 <div class="publish-row">
@@ -267,7 +276,7 @@
         </div>
 
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
     <script>
 
         const blogForm = document.getElementById("blogForm");
@@ -314,7 +323,20 @@
 
             slugInput.value = slug;
         });
-
+        const quill = new Quill("#editor", {
+            theme: "snow",
+            placeholder: "Write your blog content here...",
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, 3, false] }],
+                    ["bold", "italic", "underline"],
+                    [{ list: "ordered" }, { list: "bullet" }],
+                    ["blockquote"],
+                    ["link"],
+                    ["clean"]
+                ]
+            }
+        });
         // Create the blog
         blogForm.addEventListener("submit", async (event) => {
 
@@ -323,12 +345,17 @@
             createButton.disabled = true;
             createButton.textContent = "Creating...";
             message.textContent = "";
-
+            if (quill.getText().trim().length === 0) {
+            message.textContent = "Please enter blog content.";
+            createButton.disabled = false;
+            createButton.textContent = "Create Blog";
+            return;
+            }
             const blogData = {
                 title: document.getElementById("title").value,
                 slug: document.getElementById("slug").value,
                 excerpt: document.getElementById("excerpt").value,
-                content: document.getElementById("content").value,
+                content: quill.root.innerHTML,
                 category: document.getElementById("category").value,
                 published: document.getElementById("published").checked
             };
