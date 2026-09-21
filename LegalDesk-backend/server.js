@@ -231,6 +231,82 @@ app.get("/api/admin/blogs", authMiddleware, async (req, res) => {
         });
     }
 });
+app.put("/api/blogs/:id", authMiddleware, async (req, res) => {
+    try {
+        const blogId = req.params.id;
+
+        const {
+            title,
+            slug,
+            excerpt,
+            content,
+            category,
+            cover_image,
+            author,
+            published
+        } = req.body;
+
+        if (!title || !slug || !content) {
+            return res.status(400).json({
+                message: "Title, slug and content are required."
+            });
+        }
+
+        const cleanContent = sanitizeHtml(content, {
+            allowedTags: [
+                "p",
+                "br",
+                "strong",
+                "em",
+                "u",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "blockquote",
+                "ul",
+                "ol",
+                "li",
+                "a"
+            ],
+            allowedAttributes: {
+                a: ["href", "target", "rel"]
+            },
+            allowedSchemes: ["http", "https", "mailto"]
+        });
+
+        const updatedBlog = await sql`
+            UPDATE blogs
+            SET
+                title = ${title},
+                slug = ${slug},
+                excerpt = ${excerpt},
+                content = ${cleanContent},
+                category = ${category},
+                cover_image = ${cover_image || null},
+                author = ${author || "Adv. Samridhi Sharma"},
+                published = ${published || false},
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ${blogId}
+            RETURNING *
+        `;
+
+        if (updatedBlog.length === 0) {
+            return res.status(404).json({
+                message: "Blog not found."
+            });
+        }
+
+        res.json(updatedBlog[0]);
+
+    } catch (error) {
+        console.error("Error updating blog:", error);
+
+        res.status(500).json({
+            message: "Failed to update blog."
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
