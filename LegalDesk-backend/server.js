@@ -5,11 +5,18 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("./middleware/authMiddleware");
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 const PORT = 5000;
+
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -154,6 +161,32 @@ app.post("/api/auth/login", async (req, res) => {
 
         res.status(500).json({
             message: "Login failed."
+        });
+    }
+});
+app.get("/api/auth/me", authMiddleware, async (req, res) => {
+    try {
+        const admins = await sql`
+            SELECT id, name, email
+            FROM admin_users
+            WHERE id = ${req.admin.adminId}
+        `;
+
+        if (admins.length === 0) {
+            return res.status(401).json({
+                message: "Admin not found."
+            });
+        }
+
+        res.json({
+            admin: admins[0]
+        });
+
+    } catch (error) {
+        console.error("Auth check error:", error);
+
+        res.status(500).json({
+            message: "Failed to verify authentication."
         });
     }
 });
