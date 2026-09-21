@@ -307,6 +307,35 @@ app.put("/api/blogs/:id", authMiddleware, async (req, res) => {
         });
     }
 });
+app.delete("/api/blogs/:id", authMiddleware, async (req, res) => {
+    try {
+        const blogId = req.params.id;
+
+        const deletedBlog = await sql`
+            DELETE FROM blogs
+            WHERE id = ${blogId}
+            RETURNING id, title
+        `;
+
+        if (deletedBlog.length === 0) {
+            return res.status(404).json({
+                message: "Blog not found."
+            });
+        }
+
+        res.json({
+            message: "Blog deleted successfully.",
+            blog: deletedBlog[0]
+        });
+
+    } catch (error) {
+        console.error("Error deleting blog:", error);
+
+        res.status(500).json({
+            message: "Failed to delete blog."
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
