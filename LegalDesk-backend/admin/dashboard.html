@@ -148,6 +148,18 @@
         .edit-button:hover {
             background: #444;
         }
+        .delete-button {
+            padding: 7px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #eee;
+            color: #222;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background: #ddd;
+        }
     </style>
 </head>
 
@@ -263,16 +275,23 @@
 
             <div class="blog-actions">
 
-                <span class="blog-status">
-                    ${blog.published ? "Published" : "Draft"}
-                </span>
+            <span class="blog-status">
+                ${blog.published ? "Published" : "Draft"}
+            </span>
 
-                <button
-                    class="edit-button"
-                    onclick="editBlog(${blog.id})"
-                >
-                    Edit
-                </button>
+            <button
+                class="edit-button"
+                onclick="editBlog(${blog.id})"
+            >
+                Edit
+            </button>
+
+            <button
+                class="delete-button"
+                onclick="deleteBlog(${blog.id}, '${blog.title.replace(/'/g, "\\'")}')"
+            >
+                Delete
+            </button>
 
             </div>
         `;
@@ -289,7 +308,45 @@
             `;
         }
     }
+        async function deleteBlog(blogId, blogTitle) {
 
+        const confirmed = confirm(
+            `Are you sure you want to delete "${blogTitle}"?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:5000/api/blogs/${blogId}`,
+                {
+                    method: "DELETE",
+                    credentials: "include"
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Failed to delete blog."
+                );
+            }
+
+            alert("Blog deleted successfully.");
+
+            loadBlogs();
+
+        } catch (error) {
+
+            console.error("Delete blog error:", error);
+
+            alert(error.message);
+        }
+    }
         document.getElementById("logoutButton")
             .addEventListener("click", () => {
 
@@ -301,6 +358,7 @@
         .addEventListener("click", () => {
             window.location.href = "new-blog.html";
         });
+
 
         checkAuthentication();
         loadBlogs();
