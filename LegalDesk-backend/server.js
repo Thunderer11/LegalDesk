@@ -190,6 +190,24 @@ app.get("/api/auth/me", authMiddleware, async (req, res) => {
         });
     }
 });
+app.get("/api/admin/blogs", authMiddleware, async (req, res) => {
+    try {
+        const blogs = await sql`
+            SELECT *
+            FROM blogs
+            ORDER BY created_at DESC
+        `;
+
+        res.json(blogs);
+
+    } catch (error) {
+        console.error("Error fetching admin blogs:", error);
+
+        res.status(500).json({
+            message: "Failed to fetch blogs."
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

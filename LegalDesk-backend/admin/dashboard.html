@@ -78,6 +78,58 @@
         #status {
             color: #777;
         }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #newBlogButton {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+        }
+
+        #newBlogButton:hover {
+            background: #444;
+        }
+
+        .blog-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .blog-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .blog-category {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .blog-excerpt {
+            color: #555;
+        }
+
+        .blog-status {
+            padding: 6px 10px;
+            border-radius: 5px;
+            background: #eee;
+            font-size: 13px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -99,11 +151,14 @@
         </section>
 
         <section class="section">
-            <h2>Blogs</h2>
+            <div class="section-header">
+                <h2>Blogs</h2>
+                <button id="newBlogButton">+ New Blog</button>
+            </div>
 
-            <p id="status">
-                Blog management will be added next.
-            </p>
+            <div id="blogList">
+                <p id="status">Loading blogs...</p>
+            </div>
         </section>
 
     </main>
@@ -142,7 +197,69 @@
                 window.location.href = "login.html";
             }
         }
+        async function loadBlogs() {
 
+        const blogList = document.getElementById("blogList");
+
+        try {
+
+            const response = await fetch(
+                "http://localhost:5000/api/admin/blogs",
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to load blogs.");
+            }
+
+            const blogs = await response.json();
+
+            if (blogs.length === 0) {
+                blogList.innerHTML = "<p>No blogs found.</p>";
+                return;
+            }
+
+            blogList.innerHTML = "";
+
+            blogs.forEach(blog => {
+
+            const blogCard = document.createElement("div");
+
+            blogCard.className = "blog-card";
+
+            blogCard.innerHTML = `
+                <div>
+                    <h3>${blog.title}</h3>
+
+                    <p class="blog-category">
+                        ${blog.category || "Uncategorized"}
+                    </p>
+
+                    <p class="blog-excerpt">
+                        ${blog.excerpt || "No excerpt available."}
+                    </p>
+                </div>
+
+                <div class="blog-status">
+                    ${blog.published ? "Published" : "Draft"}
+                </div>
+            `;
+
+            blogList.appendChild(blogCard);
+        });
+
+        } catch (error) {
+
+            console.error("Failed to load blogs:", error);
+
+            blogList.innerHTML = `
+                <p>Unable to load blogs.</p>
+            `;
+        }
+    }
 
         document.getElementById("logoutButton")
             .addEventListener("click", () => {
@@ -153,8 +270,8 @@
             });
 
 
-        checkAuthentication();
-
+            checkAuthentication();
+            loadBlogs();
     </script>
 
 </body>
