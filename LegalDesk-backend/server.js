@@ -13,8 +13,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigin =
+    process.env.NODE_ENV === "production"
+        ? "https://www.advsamridhisharma.com"
+        : true;
+
 app.use(cors({
-    origin: true,
+    origin: allowedOrigin,
     credentials: true
 }));
 
@@ -192,7 +197,9 @@ app.post("/api/auth/login", async (req, res) => {
         res.cookie("admin_token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: process.env.NODE_ENV === "production"
+                ? "none"
+                : "lax",
             maxAge: 2 * 60 * 60 * 1000,
             path: "/"
         });
