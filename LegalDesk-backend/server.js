@@ -336,6 +336,47 @@ app.delete("/api/blogs/:id", authMiddleware, async (req, res) => {
         });
     }
 });
+app.patch("/api/blogs/:id/publish", authMiddleware, async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const { published } = req.body;
+
+        if (typeof published !== "boolean") {
+            return res.status(400).json({
+                message: "Published must be true or false."
+            });
+        }
+
+        const updatedBlog = await sql`
+            UPDATE blogs
+            SET
+                published = ${published},
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ${blogId}
+            RETURNING id, title, published, updated_at
+        `;
+
+        if (updatedBlog.length === 0) {
+            return res.status(404).json({
+                message: "Blog not found."
+            });
+        }
+
+        res.json({
+            message: published
+                ? "Blog published successfully."
+                : "Blog unpublished successfully.",
+            blog: updatedBlog[0]
+        });
+
+    } catch (error) {
+        console.error("Error changing blog publication status:", error);
+
+        res.status(500).json({
+            message: "Failed to update publication status."
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

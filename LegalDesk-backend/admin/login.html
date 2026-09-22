@@ -205,11 +205,9 @@
                 }
 
                 message.textContent = "Login successful!";
-
-                // Dashboard will be created next.
-                // For now, wait briefly after successful login.
+                console.log("REDIRECT CODE REACHED");
                 setTimeout(() => {
-                    alert("Login successful!");
+                    window.location.href = "dashboard.html";
                 }, 300);
 
             } catch (error) {
