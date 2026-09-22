@@ -200,7 +200,7 @@
             try {
 
                 const response = await fetch(
-                    "http://localhost:5000/api/auth/me",
+                    "http://127.0.0.1:5000/api/auth/me",
                     {
                         method: "GET",
                         credentials: "include"
@@ -234,7 +234,7 @@
         try {
 
             const response = await fetch(
-                "http://localhost:5000/api/admin/blogs",
+                "http://127.0.0.1:5000/api/admin/blogs",
                 {
                     method: "GET",
                     credentials: "include"
@@ -315,7 +315,7 @@
         try {
 
             const response = await fetch(
-                `http://localhost:5000/api/blogs/${blogId}`,
+                `http://127.0.0.1:5000/api/blogs/${id}/publish`,
                 {
                     method: "DELETE",
                     credentials: "include"
@@ -354,7 +354,7 @@
 
     try {
         const response = await fetch(
-            `http://localhost:5000/api/blogs/${id}/publish`,
+            `http://127.0.0.1:5000/api/blogs/${id}/publish`,
             {
                 method: "PATCH",
                 headers: {

@@ -11,92 +11,218 @@
 
 <body>
 
-    <header>
-        <h1>Samridhi's LegalDesk</h1>
+    <header class="blog-header">
+
+        <div class="blog-header-inner">
+
+            <a href="index.html" class="blog-logo">
+                Samridhi's LegalDesk
+            </a>
+
+            <a href="index.html#insights" class="back-to-insights">
+                ← Legal Insights
+            </a>
+
+        </div>
+
     </header>
+
 
     <main class="blog-page">
 
         <article class="blog-article">
 
-            <p id="blogCategory" class="blog-category">
-                Loading...
-            </p>
+            <div class="blog-article-header">
 
-            <h1 id="blogTitle">
-                Loading article...
-            </h1>
+                <p id="blogCategory" class="blog-category">
+                    Loading...
+                </p>
 
-            <div class="blog-meta">
-                <span id="blogAuthor"></span>
-                <span id="blogDate"></span>
+                <h1 id="blogTitle">
+                    Loading article...
+                </h1>
+
+                <div class="blog-meta">
+
+                    <span id="blogAuthor"></span>
+
+                    <span class="meta-divider">•</span>
+
+                    <span id="blogDate"></span>
+
+                </div>
+
             </div>
+
+
+            <div id="blogCoverContainer" class="blog-cover-container">
+
+                <img
+                    id="blogCover"
+                    class="blog-cover"
+                    alt=""
+                >
+
+            </div>
+
 
             <div id="blogContent" class="blog-content">
                 Loading article content...
+            </div>
+
+
+            <div class="blog-footer">
+
+                <a href="index.html#insights">
+                    ← Back to Legal Insights
+                </a>
+
             </div>
 
         </article>
 
     </main>
 
+
     <script>
+
         async function loadBlog() {
 
-        const blogTitle = document.getElementById("blogTitle");
-        const blogCategory = document.getElementById("blogCategory");
-        const blogAuthor = document.getElementById("blogAuthor");
-        const blogDate = document.getElementById("blogDate");
-        const blogContent = document.getElementById("blogContent");
+            const blogTitle =
+                document.getElementById("blogTitle");
 
-        const params = new URLSearchParams(window.location.search);
-        const slug = params.get("slug");
+            const blogCategory =
+                document.getElementById("blogCategory");
 
-        if (!slug) {
-            blogTitle.textContent = "Article not found.";
-            blogContent.textContent = "No blog was specified.";
-            return;
-        }
+            const blogAuthor =
+                document.getElementById("blogAuthor");
 
-        try {
+            const blogDate =
+                document.getElementById("blogDate");
 
-            const response = await fetch(
-                `http://localhost:5000/api/blogs/${encodeURIComponent(slug)}`
-            );
+            const blogContent =
+                document.getElementById("blogContent");
 
-            const data = await response.json();
+            const blogCoverContainer =
+                document.getElementById("blogCoverContainer");
 
-            if (!response.ok) {
-                throw new Error(data.message || "Blog not found.");
+            const blogCover =
+                document.getElementById("blogCover");
+
+
+            const params =
+                new URLSearchParams(window.location.search);
+
+            const slug =
+                params.get("slug");
+
+
+            if (!slug) {
+
+                blogTitle.textContent =
+                    "Article not found.";
+
+                blogContent.textContent =
+                    "No blog was specified.";
+
+                blogCoverContainer.style.display =
+                    "none";
+
+                return;
             }
 
-            blogTitle.textContent = data.title;
-            blogCategory.textContent = data.category || "Legal Insight";
-            blogAuthor.textContent = `By ${data.author || "Adv. Samridhi Sharma"}`;
 
-            const date = new Date(data.created_at);
+            try {
 
-            blogDate.textContent = date.toLocaleDateString("en-IN", {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            });
+                const response = await fetch(
+                    `http://127.0.0.1:5000/api/blogs/${encodeURIComponent(slug)}`
+                );
 
-            blogContent.innerHTML = data.content;
 
-            document.title = `${data.title} | Samridhi's LegalDesk`;
+                const data =
+                    await response.json();
 
-        } catch (error) {
 
-            console.error("Failed to load blog:", error);
+                if (!response.ok) {
 
-            blogTitle.textContent = "Article not found.";
-            blogContent.textContent =
-                "The article could not be loaded.";
+                    throw new Error(
+                        data.message || "Blog not found."
+                    );
+
+                }
+
+
+                blogTitle.textContent =
+                    data.title;
+
+
+                blogCategory.textContent =
+                    data.category || "Legal Insight";
+
+
+                blogAuthor.textContent =
+                    `By ${data.author || "Adv. Samridhi Sharma"}`;
+
+
+                const date =
+                    new Date(data.created_at);
+
+
+                blogDate.textContent =
+                    date.toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    });
+
+
+                blogContent.innerHTML =
+                    data.content;
+
+
+                document.title =
+                    `${data.title} | Samridhi's LegalDesk`;
+
+
+                if (data.cover_image) {
+
+                    blogCover.src =
+                        data.cover_image;
+
+                    blogCover.alt =
+                        data.title;
+
+                } else {
+
+                    blogCoverContainer.style.display =
+                        "none";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load blog:",
+                    error
+                );
+
+
+                blogTitle.textContent =
+                    "Article not found.";
+
+                blogContent.textContent =
+                    "The article could not be loaded.";
+
+                blogCoverContainer.style.display =
+                    "none";
             }
+
         }
+
 
         loadBlog();
+
     </script>
 
 </body>

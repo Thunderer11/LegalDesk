@@ -291,7 +291,7 @@
             try {
 
                 const response = await fetch(
-                    "http://localhost:5000/api/auth/me",
+                    "http://127.0.0.1:5000/api/auth/me",
                     {
                         method: "GET",
                         credentials: "include"
@@ -342,7 +342,7 @@
         async function loadBlog(id) {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/admin/blogs`,
+                    `http://127.0.0.1:5000/api/admin/blogs`,
                     {
                         method: "GET",
                         credentials: "include"
@@ -412,8 +412,8 @@
 
             try {
                 const url = blogId
-                    ? `http://localhost:5000/api/blogs/${blogId}`
-                    : "http://localhost:5000/api/blogs";
+                    ? `http://127.0.0.1:5000/api/blogs/${blogId}`
+                    : "http://127.0.0.1:5000/api/blogs";
 
                 const method = blogId ? "PUT" : "POST";
 
