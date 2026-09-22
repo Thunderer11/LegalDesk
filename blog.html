@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Legal Insight | Samridhi's LegalDesk</title>
+
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Samridhi's LegalDesk</h1>
+    </header>
+
+    <main class="blog-page">
+
+        <article class="blog-article">
+
+            <p id="blogCategory" class="blog-category">
+                Loading...
+            </p>
+
+            <h1 id="blogTitle">
+                Loading article...
+            </h1>
+
+            <div class="blog-meta">
+                <span id="blogAuthor"></span>
+                <span id="blogDate"></span>
+            </div>
+
+            <div id="blogContent" class="blog-content">
+                Loading article content...
+            </div>
+
+        </article>
+
+    </main>
+
+    <script>
+        async function loadBlog() {
+
+        const blogTitle = document.getElementById("blogTitle");
+        const blogCategory = document.getElementById("blogCategory");
+        const blogAuthor = document.getElementById("blogAuthor");
+        const blogDate = document.getElementById("blogDate");
+        const blogContent = document.getElementById("blogContent");
+
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get("slug");
+
+        if (!slug) {
+            blogTitle.textContent = "Article not found.";
+            blogContent.textContent = "No blog was specified.";
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:5000/api/blogs/${encodeURIComponent(slug)}`
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Blog not found.");
+            }
+
+            blogTitle.textContent = data.title;
+            blogCategory.textContent = data.category || "Legal Insight";
+            blogAuthor.textContent = `By ${data.author || "Adv. Samridhi Sharma"}`;
+
+            const date = new Date(data.created_at);
+
+            blogDate.textContent = date.toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+            blogContent.innerHTML = data.content;
+
+            document.title = `${data.title} | Samridhi's LegalDesk`;
+
+        } catch (error) {
+
+            console.error("Failed to load blog:", error);
+
+            blogTitle.textContent = "Article not found.";
+            blogContent.textContent =
+                "The article could not be loaded.";
+            }
+        }
+
+        loadBlog();
+    </script>
+
+</body>
+</html>

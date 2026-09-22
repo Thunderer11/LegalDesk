@@ -520,6 +520,10 @@
                     <p>
                         ${blog.excerpt || "Read the latest legal insight."}
                     </p>
+
+                    <a href="blog.html?slug=${encodeURIComponent(blog.slug)}">
+                        Read Article →
+                    </a>
                 `;
 
                 blogList.appendChild(article);

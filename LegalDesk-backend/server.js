@@ -47,6 +47,33 @@ app.get("/api/blogs", async (req, res) => {
         });
     }
 });
+app.get("/api/blogs/:slug", async (req, res) => {
+    try {
+        const { slug } = req.params;
+
+        const blogs = await sql`
+            SELECT *
+            FROM blogs
+            WHERE slug = ${slug}
+            AND published = true
+        `;
+
+        if (blogs.length === 0) {
+            return res.status(404).json({
+                message: "Blog not found."
+            });
+        }
+
+        res.json(blogs[0]);
+
+    } catch (error) {
+        console.error("Error fetching blog:", error);
+
+        res.status(500).json({
+            message: "Failed to fetch blog."
+        });
+    }
+});
 app.post("/api/blogs", authMiddleware, async (req, res) => {
     try {
         const {
