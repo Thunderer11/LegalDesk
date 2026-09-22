@@ -223,42 +223,19 @@
 
         <section id="insights" class="legal-insights">
             <h2>Legal Insights</h2>
-            <p class="insights-intro">Stay updated with legal developments, case analysis, and discussions on
-                contemporary legal issues through regularly published articles.</p>
+
+            <p class="insights-intro">
+                Stay updated with legal developments, case analysis, and discussions on
+                contemporary legal issues through regularly published articles.
+            </p>
+
             <div class="topics">
-                <h3>Topics include:</h3>
-                <ul class="topics-list">
-                    <li>
-                        <span class="topic-icon">⚖️</span>
-                        <h4>Constitutional law</h4>
-                        <p>Analysis of fundamental rights, constitutional principles, and judicial interpretations.</p>
-                    </li>
-                    <li>
-                        <span class="topic-icon">👮</span>
-                        <h4>Criminal justice developments</h4>
-                        <p>Updates on criminal law reforms, case precedents, and justice system advancements.</p>
-                    </li>
-                    <li>
-                        <span class="topic-icon">💻</span>
-                        <h4>Cyber law and technology law</h4>
-                        <p>Insights into digital rights, data security, and emerging technology regulations.</p>
-                    </li>
-                    <li>
-                        <span class="topic-icon">🔒</span>
-                        <h4>Data protection and privacy law</h4>
-                        <p>Discussions on privacy rights, data handling laws, and compliance requirements.</p>
-                    </li>
-                    <li>
-                        <span class="topic-icon">👨‍👩‍👧‍👦</span>
-                        <h4>Family law</h4>
-                        <p>Guidance on marriage, divorce, child custody, and family-related legal matters.</p>
-                    </li>
-                    <li>
-                        <span class="topic-icon">📋</span>
-                        <h4>Civil and commercial law</h4>
-                        <p>Explanations of contract law, business disputes, and commercial transactions.</p>
-                    </li>
-                </ul>
+                <h3>Latest Articles</h3>
+
+                <div id="blogList" class="topics-list">
+                    <p>Loading articles...</p>
+                </div>
+            </div>
         </section>
 
         <!-- New About Us Section -->
@@ -505,6 +482,57 @@
                 hamburgerBtn.setAttribute('aria-expanded', 'false');
             });
         });
+        async function loadPublicBlogs() {
+        const blogList = document.getElementById("blogList");
+
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/blogs"
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch blogs.");
+            }
+
+            const blogs = await response.json();
+
+            if (blogs.length === 0) {
+                blogList.innerHTML = `
+                    <p>No articles published yet.</p>
+                `;
+                return;
+            }
+
+            blogList.innerHTML = "";
+
+            blogs.forEach(blog => {
+                const article = document.createElement("article");
+
+                article.className = "blog-card";
+
+                article.innerHTML = `
+                    <h4>${blog.title}</h4>
+
+                    <p class="blog-category">
+                        ${blog.category || "Legal Insight"}
+                    </p>
+
+                    <p>
+                        ${blog.excerpt || "Read the latest legal insight."}
+                    </p>
+                `;
+
+                blogList.appendChild(article);
+            });
+
+            } catch (error) {
+                console.error("Failed to load public blogs:", error);
+                blogList.innerHTML = `
+                    <p>Unable to load articles at the moment.</p>
+                `;
+            }
+        }
+        loadPublicBlogs();
     </script>
 </body>
 
