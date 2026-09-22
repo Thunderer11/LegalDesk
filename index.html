@@ -510,19 +510,7 @@
                 const article = document.createElement("article");
                 article.className = "article-card";
 
-                const coverImage = blog.cover_image
-                    ? blog.cover_image
-                    : "legalInsight-hero.jpg";
-
                 article.innerHTML = `
-                    <div class="article-image">
-                        <img
-                            src="${coverImage}"
-                            alt="${blog.title}"
-                            loading="lazy"
-                        >
-                    </div>
-
                     <div class="article-content">
 
                         <span class="article-category">
