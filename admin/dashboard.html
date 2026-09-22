@@ -200,7 +200,7 @@
             try {
 
                 const response = await fetch(
-                    "http://127.0.0.1:5000/api/auth/me",
+                    "https://legaldesk-backend.vercel.app/api/auth/me",
                     {
                         method: "GET",
                         credentials: "include"
@@ -234,7 +234,7 @@
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/api/admin/blogs",
+                "https://legaldesk-backend.vercel.app/api/admin/blogs",
                 {
                     method: "GET",
                     credentials: "include"
@@ -315,7 +315,7 @@
         try {
 
             const response = await fetch(
-                `http://127.0.0.1:5000/api/blogs/${id}/publish`,
+                `https://legaldesk-backend.vercel.app/api/blogs/${blogId}`,
                 {
                     method: "DELETE",
                     credentials: "include"
@@ -354,7 +354,7 @@
 
     try {
         const response = await fetch(
-            `http://127.0.0.1:5000/api/blogs/${id}/publish`,
+            `https://legaldesk-backend.vercel.app/api/blogs/${id}/publish`,
             {
                 method: "PATCH",
                 headers: {

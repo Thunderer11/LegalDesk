@@ -13,13 +13,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigin =
-    process.env.NODE_ENV === "production"
-        ? "https://www.advsamridhisharma.com"
-        : true;
+const allowedOrigins = [
+    "https://www.advsamridhisharma.com",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500"
+];
 
 app.use(cors({
-    origin: allowedOrigin,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
 

@@ -291,7 +291,7 @@
             try {
 
                 const response = await fetch(
-                    "http://127.0.0.1:5000/api/auth/me",
+                    "https://legaldesk-backend.vercel.app/api/auth/me",
                     {
                         method: "GET",
                         credentials: "include"
@@ -342,7 +342,7 @@
         async function loadBlog(id) {
             try {
                 const response = await fetch(
-                    `http://127.0.0.1:5000/api/admin/blogs`,
+                    `https://legaldesk-backend.vercel.app/api/admin/blogs`,
                     {
                         method: "GET",
                         credentials: "include"
@@ -412,8 +412,8 @@
 
             try {
                 const url = blogId
-                    ? `http://127.0.0.1:5000/api/blogs/${blogId}`
-                    : "http://127.0.0.1:5000/api/blogs";
+                    ? `https://legaldesk-backend.vercel.app/api/blogs/${blogId}`
+                    : "https://legaldesk-backend.vercel.app/api/blogs";
 
                 const method = blogId ? "PUT" : "POST";
 
