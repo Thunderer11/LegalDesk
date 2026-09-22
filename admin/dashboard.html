@@ -383,12 +383,33 @@
     }
 }
         document.getElementById("logoutButton")
-            .addEventListener("click", () => {
+    .addEventListener("click", async () => {
 
-                // Logout endpoint will be added next.
-                alert("Logout will be implemented next.");
+        try {
+            const response = await fetch(
+                "https://legaldesk-backend.vercel.app/api/auth/logout",
+                {
+                    method: "POST",
+                    credentials: "include"
+                }
+            );
 
-            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Logout failed."
+                );
+            }
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+            console.error("Logout error:", error);
+            alert(error.message);
+        }
+
+    });
         document.getElementById("newBlogButton")
         .addEventListener("click", () => {
             window.location.href = "new-blog.html";
